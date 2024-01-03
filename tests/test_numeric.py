@@ -20,5 +20,20 @@ class TestBisect(unittest.TestCase):
             bisect(lambda x: x, 2, 1, 0.01)
 
 
+class TestNewton(unittest.TestCase):
+    # smalllab.numeric.newton
+    
+    def test_max_iteration_exceeded(self):
+        f = lambda x: x**6 - x - 1
+        df = lambda x: 6 * x**5 - 1
+        self.assertEqual(None, newton(f, df, 1.5, 1e-8, 3))
+    
+    def test_derivative_is_not_zero(self):
+        with self.assertRaises(ValueError):
+            f = lambda x: x**3 - 1
+            df = lambda x: 3 * x**2
+            newton(f, df, 0, 0.001, 3)
+
+
 if __name__ == "__main__":
     unittest.main()
