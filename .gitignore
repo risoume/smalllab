@@ -3,5 +3,6 @@ smalllab/.mypy_cache
 
 notebooks/*/__pycache__
 notebooks/*/.ipynb_checkpoints
+notebooks/ongoing
 
 tests/__pycache__
