@@ -14,12 +14,11 @@ def bisect(f: Callable[[number], number], a0: number, b0: number, e: number) -> 
         raise ValueError("a0 must be less than b0")
     if e <= 0:
         raise ValueError("error tolerance must be positive")
+    if sign(f(a0)) * sign(f(b0)) > 0:
+        raise ValueError("f(a0) and f(b0) must have different signs")
 
     a, b = a0, b0
     fa, fb = f(a), f(b)
-
-    if sign(fa) * sign(fb) > 0:
-        raise ValueError("f(a0) and f(b0) must have different signs")
 
     c = (a + b) / 2
     while b - c > e:

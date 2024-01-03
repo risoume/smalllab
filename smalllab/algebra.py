@@ -1,4 +1,4 @@
-"""This modulo contains functions related to algebra.
+"""This module contains functions related to algebra.
 """
 
 from smalllab.nt import gcd

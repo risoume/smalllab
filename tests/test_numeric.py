@@ -22,6 +22,7 @@ class TestBisect(unittest.TestCase):
 
 class TestNewton(unittest.TestCase):
     # smalllab.numeric.newton
+    # todo: use scipy to test the result
     
     def test_max_iteration_exceeded(self):
         f = lambda x: x**6 - x - 1
