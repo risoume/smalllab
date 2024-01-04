@@ -59,3 +59,35 @@ def newton(f: Callable[[number], number], df: Callable[[number], number],
         x0 = x1
         
     return None
+
+
+def secant(f: Callable[[number], number], x0: number, x1: number,
+        e: number, max_it: int) -> float | None:
+    """Find a root of a function using secant method.
+
+    Parameters
+    ----------
+    f : Callable
+        Function for which the root will be calculated.
+    x0, x1 : int or float
+        Initial guesses for the root.
+    e : int or float
+        Error tolerance.
+    max_it : int
+        Maximum iteration.
+    """
+    fx0 = f(x0)
+    for j in range(1, max_it + 1):
+        fx1 = f(x1)
+        if fx1 - fx0 == 0:
+            raise ValueError("f(x1) = f(x0); division by zero")
+            
+        x2 = x1 - fx1*(x1-x0)/(fx1-fx0)
+        error = x2 - x1
+        if abs(error) <= e:
+            return x2
+        
+        x0, x1 = x1, x2
+        fx0 = fx1
+    
+    return None

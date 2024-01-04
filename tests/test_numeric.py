@@ -36,5 +36,15 @@ class TestNewton(unittest.TestCase):
             newton(f, df, 0, 0.001, 3)
 
 
+class TestSecant(unittest.TestCase):
+    # smalllab.numeric.secant
+    # todo: - use scipy to test the result
+    #       - find example where f(x0)==f(x1)
+
+    def test_max_iteration_exceeded(self):
+        f = lambda x: x**6 - x - 1
+        self.assertEqual(None, secant(f, 2, 1, 1e-8, 5))
+
+
 if __name__ == "__main__":
     unittest.main()
