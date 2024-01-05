@@ -91,3 +91,32 @@ def secant(f: Callable[[number], number], x0: number, x1: number,
         fx0 = fx1
     
     return None
+
+
+def lagrange(X: list[number], Y: list[number], xp: number) -> float:
+    """Given data points X and Y, and a value xp,
+    evaluate Pn(xp) where Pn is the Lagrange's polynomial.
+
+    Parameters
+    ----------
+    X, Y : list of int or float
+        All values in X must be distinct.
+        The length of X and Y must be equal and greater than 1.
+    xp : int or float
+    """
+    if len(X) != len(Y):
+        raise ValueError("the length of X and Y must be equal")
+    if len(X) < 2:
+        raise ValueError("the length of X and Y must be greater than 1")
+    if len(set(X)) != len(X):
+        raise ValueError("all values in X must be distinct")
+    
+    n = len(X)
+    yp = 0.0
+    for j in range(n):
+        p = 1.0
+        for k in range(n):
+            if j != k:
+                p *= (xp-X[k]) / (X[j]-X[k])
+        yp += Y[j] * p
+    return yp

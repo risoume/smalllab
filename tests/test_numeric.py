@@ -46,5 +46,30 @@ class TestSecant(unittest.TestCase):
         self.assertEqual(None, secant(f, 2, 1, 1e-8, 5))
 
 
+class TestLagrange(unittest.TestCase):
+    # smalllab.numeric.lagrange
+
+    def test_length_greater_than_1(self):
+        with self.assertRaises(ValueError):
+            X = [0.82]
+            Y = [2.2705]
+            xp = 0.826
+            lagrange(X, Y, xp)
+
+    def test_same_length(self):
+        with self.assertRaises(ValueError):
+            X = [0.82, 0.83, 0.84, 0.85]
+            Y = [2.2705, 2.293319, 2.316367]
+            xp = 0.826
+            lagrange(X, Y, xp)
+    
+    def test_X_entries_must_be_distinct(self):
+        with self.assertRaises(ValueError):
+            X = [0.82, 0.83, 0.83]
+            Y = [2.2705, 2.293319, 2.316367]
+            xp = 0.826
+            lagrange(X, Y, xp)
+        
+
 if __name__ == "__main__":
     unittest.main()
