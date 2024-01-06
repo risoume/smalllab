@@ -120,3 +120,38 @@ def lagrange(X: list[number], Y: list[number], xp: number) -> float:
                 p *= (xp-X[k]) / (X[j]-X[k])
         yp += Y[j] * p
     return yp
+
+
+def divdif(X: list[number], Y: list[number]) -> list[float]:
+    """Calculate the set of divided differences
+    f[x0,x1], f[x0,x1,x2], ..., f[x0,x1,...,xn].
+    
+    Parameters
+    ----------
+    X, Y : list of int or float
+        All entries in X must be distinct.
+        The length of X and Y must be equal and greater than 1.
+    """
+    if len(X) != len(Y):
+        raise ValueError("the length of X and Y must be equal")
+    if len(X) < 2:
+        raise ValueError("the length of X and Y must be greater than 1")
+    if len(set(X)) != len(X):
+        raise ValueError("all values in X must be distinct")
+        
+    n = len(X)
+    D = Y.copy()
+    for j in range(1, n):
+        for k in range(j, n):
+            D[k] = (D[k]-D[j-1]) / (X[k]-X[j-1])
+    return D
+
+
+def newton_divdif(X: list[number], Y: list[number], xp: number) -> float:
+    """Evaluate the Newton divided difference at xp."""
+    n = len(X) - 1
+    D = divdif(X, Y)
+    p = D[n]
+    for j in range(1, n+1):
+        p = D[n-j] + (xp-X[n-j])*p
+    return p

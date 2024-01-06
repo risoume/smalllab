@@ -71,5 +71,40 @@ class TestLagrange(unittest.TestCase):
             lagrange(X, Y, xp)
         
 
+class TestDivdif(unittest.TestCase):
+    # smalllab.numeric.divdif
+
+    def test_length_greater_than_1(self):
+        with self.assertRaises(ValueError):
+            X = [0.82]
+            Y = [2.2705]
+            xp = 0.826
+            divdif(X, Y)
+
+    def test_same_length(self):
+        with self.assertRaises(ValueError):
+            X = [0.82, 0.83, 0.84, 0.85]
+            Y = [2.2705, 2.293319, 2.316367]
+            xp = 0.826
+            divdif(X, Y)
+    
+    def test_X_entries_must_be_distinct(self):
+        with self.assertRaises(ValueError):
+            X = [0.82, 0.83, 0.83]
+            Y = [2.2705, 2.293319, 2.316367]
+            xp = 0.826
+            divdif(X, Y)
+        
+
+class TestNewtonDivdif(unittest.TestCase):
+    # smalllab.numeric.newton_divdif
+
+    def test_some_values(self):
+        X = [5, 7, 11, 13, 17]
+        Y = [150, 392, 1452, 2366, 5202]
+        xp = 9
+        self.assertEqual(810, newton_divdif(X, Y, xp))
+
+
 if __name__ == "__main__":
     unittest.main()
