@@ -168,3 +168,19 @@ def near_minimax(f: Callable[[number], number], n: int) -> Callable:
     def near_minimax_(xp):
         return newton_divdif(nodes, y_values, xp)
     return near_minimax_
+
+
+def trapezoidal(f: Callable, a: number, b: number, n: int) -> float:
+    """Evaluate the integral of f over [a, b] using trapezoidal rule
+    with n subdivision.
+    """
+    if a > b:
+        raise ValueError("a must be less than b")
+    if n < 1:
+        raise ValueError("n must be positive integer")
+    
+    h = (b-a) / n
+    sum = (f(a) + f(b)) / 2
+    for j in range(1, n):
+        sum += f(a+j*h)
+    return sum * h

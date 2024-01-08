@@ -120,5 +120,26 @@ class TestNearMinimax(unittest.TestCase):
             self.assertLessEqual(diff, max_error)
 
 
+class TestTrapezoidal(unittest.TestCase):
+    # smalllab.numeric.trapezoidal
+
+    def test_some_values(self):
+        f = lambda x: exp(-x**2)
+        a, b = 0, 1
+        sol = 0.746824132812427
+        error = 5.98e-5
+        self.assertLess(error, abs(trapezoidal(f, a, b, 32) - sol))
+
+    def test_a_less_than_b(self):
+        with self.assertRaises(ValueError):
+            f = lambda x: x**2
+            trapezoidal(f, 3, 2, 3)
+    
+    def test_n_is_positive_integer(self):
+        with self.assertRaises(ValueError):
+            f = lambda x: x**2
+            trapezoidal(f, 3, 2, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
