@@ -78,5 +78,36 @@ class TestList2PolyStr(unittest.TestCase):
         self.assertEqual('-3x^6+2x^3-1x^2', list2polystr([-3, 0, 0, 2, -1, 0, 0]))
 
 
+class TestChebyshevCoef(unittest.TestCase):
+    # smalllab.calculus.chebyshev_coef
+
+    def test_some_values(self):
+        self.assertEqual([1], chebyshev_coef(0))
+        self.assertEqual([1, 0], chebyshev_coef(1))
+        self.assertEqual([8, 0, -8, 0, 1], chebyshev_coef(4))
+        self.assertEqual([16, 0, -20, 0, 5, 0], chebyshev_coef(5))
+    
+    def test_only_nonnegative_integer(self):
+        with self.assertRaises(ValueError):
+            chebyshev_coef(-1)
+
+
+class TestChebyshevZeros(unittest.TestCase):
+    # smalllab.calculus.chebyshev_zeros
+
+    def test_some_values(self):
+        L = [0.9238795325112867,
+            0.38268343236508984,
+            -0.3826834323650897,
+            -0.9238795325112867]
+        nodes = chebyshev_zeros(4)
+        for j in range(4):
+            self.assertAlmostEqual(L[j], nodes[j])
+    
+    def test_positive_integer_argument(self):
+        with self.assertRaises(ValueError):
+            chebyshev_zeros(0)
+
+
 if __name__ == "__main__":
     unittest.main()

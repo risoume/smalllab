@@ -2,6 +2,7 @@
 """
 
 from collections.abc import Callable
+from math import cos, pi
 
 number = int | float
 
@@ -94,3 +95,29 @@ def list2polystr(L_: list) -> str:
         L[j] = format_poly(deg-j, L[j])
 
     return ''.join(L)
+
+
+def chebyshev_coef(n: int) -> list:
+    """Return a list containing coefficients of chebyshev polynomial of degree n."""
+    if n < 0:
+        raise ValueError("argument must be nonnegative integer")
+    if n == 0:
+        return [1]
+        
+    T0 = [1]
+    T1 = [1, 0]
+    for j in range(2, n+1):
+        T2 = [2*a for a in T1]
+        T2.append(0)
+        for k in range(j-1):
+            T2[2+k] -= T0[k]
+        T0 = T1.copy()
+        T1 = T2.copy()
+    return T1
+
+
+def chebyshev_zeros(n: int) -> list[float]:
+    """Return the zeros of chebyshev polynomial of degree n."""
+    if n < 1:
+        raise ValueError("n must be positive integer")
+    return [cos( (2*j+1)*pi/(2*n) ) for j in range(n)]
