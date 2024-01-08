@@ -155,3 +155,16 @@ def newton_divdif(X: list[number], Y: list[number], xp: number) -> float:
     for j in range(1, n+1):
         p = D[n-j] + (xp-X[n-j])*p
     return p
+
+
+def near_minimax(f: Callable[[number], number], n: int) -> Callable:
+    """Construct the near minimax approximation of degree n
+    for a given function f on [-1,1] using newton divided difference.
+    """
+    from smalllab.calculus import chebyshev_zeros
+    
+    nodes = chebyshev_zeros(n+1)
+    y_values = [f(x) for x in nodes]
+    def near_minimax_(xp):
+        return newton_divdif(nodes, y_values, xp)
+    return near_minimax_

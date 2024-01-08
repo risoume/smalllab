@@ -1,6 +1,7 @@
 import unittest
 import lib_path_from_tests
 from smalllab.numeric import *
+from math import exp
 
 class TestBisect(unittest.TestCase):
     # smalllab.numeric.bisect
@@ -104,6 +105,19 @@ class TestNewtonDivdif(unittest.TestCase):
         Y = [150, 392, 1452, 2366, 5202]
         xp = 9
         self.assertEqual(810, newton_divdif(X, Y, xp))
+
+
+class TestNearMinimax(unittest.TestCase):
+    # smalllab.numeric.near_minimax
+
+    def test_some_values(self):
+        f = lambda x: exp(x)
+        c = near_minimax(f, 3)
+        xs = [-0.7, -0.5, -0.1, 0.2, 0.8]
+        max_error = 6.66e-3
+        for x in xs:
+            diff = abs(f(x) - c(x))
+            self.assertLessEqual(diff, max_error)
 
 
 if __name__ == "__main__":
