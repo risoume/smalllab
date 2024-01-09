@@ -182,3 +182,20 @@ def trapezoidal(f: Callable, a: number, b: number, n: int) -> float:
     for j in range(1, n):
         sum += f(a+j*h)
     return sum * h
+
+
+def simpson(f: Callable, a: number, b: number, n: int) -> float:
+    """Evaluate the integral of f over [a, b] using simpson's rule
+    with n subdivisions.
+    """
+    if (n % 2 == 1) or (n < 2):
+        raise ValueError("n must be positive even number")
+        
+    h = (b-a) / n
+    sum = f(a) + f(b)
+    for j in range(1, n):
+        if j % 2 == 0:
+            sum += 2 * f(a+j*h)
+        else:
+            sum += 4 * f(a+j*h)
+    return h * sum / 3

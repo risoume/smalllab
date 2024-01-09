@@ -136,5 +136,28 @@ class TestTrapezoidal(unittest.TestCase):
             trapezoidal(f, 3, 2, 0)
 
 
+class TestSimpson(unittest.TestCase):
+    # smalllab.numeric.simpson
+
+    def test_some_values(self):
+        f = lambda x: exp(-x**2)
+        a, b = 0, 1
+        sol = 0.746824132812427
+        error = 7.78e-9
+        self.assertLess(error, abs(simpson(f, a, b, 32) - sol))
+
+    def test_even_subdivisions(self):
+        with self.assertRaises(ValueError):
+            f = lambda x: x
+            a, b = 0, 1
+            simpson(f, a, b, 3)
+    
+    def test_positive_subdivisions(self):
+        with self.assertRaises(ValueError):
+            f = lambda x: x
+            a, b = 0, 1
+            simpson(f, a, b, 0)
+            
+
 if __name__ == "__main__":
     unittest.main()
