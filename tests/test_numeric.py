@@ -130,11 +130,6 @@ class TestTrapezoidal(unittest.TestCase):
         error = 5.98e-5
         self.assertLess(error, abs(trapezoidal(f, a, b, 32) - sol))
 
-    def test_a_less_than_b(self):
-        with self.assertRaises(ValueError):
-            f = lambda x: x**2
-            trapezoidal(f, 3, 2, 3)
-    
     def test_n_is_positive_integer(self):
         with self.assertRaises(ValueError):
             f = lambda x: x**2

@@ -174,8 +174,6 @@ def trapezoidal(f: Callable, a: number, b: number, n: int) -> float:
     """Evaluate the integral of f over [a, b] using trapezoidal rule
     with n subdivision.
     """
-    if a > b:
-        raise ValueError("a must be less than b")
     if n < 1:
         raise ValueError("n must be positive integer")
     
